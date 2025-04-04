@@ -1,3 +1,4 @@
 output/*.rds
+*.png
 #*.html
 .DS_Store
