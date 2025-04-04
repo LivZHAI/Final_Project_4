@@ -1,0 +1,121 @@
+---
+title: "Final Project 4"
+author: "Siyu Zhai"
+date: '`r Sys.Date()`'
+output:
+  html_document
+---
+# Introduction
+
+This dataset contains information on 1000 patients with lung cancer, including their demographics (age, gender), levels of a series of exposure (air pollution exposure, alcohol use, dust allergy, occupational hazards, genetic risk, chronic lung disease, balanced diet, obesity, smoking, passive smoker) and specific body symptoms (chest pain, coughing of blood, fatigue, weight loss ,shortness of breath ,wheezing ,swallowing difficulty ,clubbing of finger nails and snoring), 26 columns in total.
+
+# Analysis Objectives
+
+Based on this dataset, some of my expectations are like to find out:<br>
+1. the descriptive statistics of personal exposure and symptom information for each specific variable;<br>
+2. the relationship between specific exposure and lung cancer, what are the potential risk factors for lung cancer;<br>
+3. will gender or age have an impact on contracting lung cancer;<br>
+4. the prediction logit model to forecast the probability of contracting lung cancer;<br>
+5. how to treat lung cancer best;<br>
+6. any corresponding suggestion to prevent lung cancer, etc.
+
+Particularly in this time, I will complete objective 1, and the rest of model establishment will be done in the subsequent projects.
+
+# Collected Data
+
+Here is loading data code and dataset is display below with the first ten rows.
+
+```{r, load-data-and-head-data-10-row, echo = TRUE}
+absolute_file_path <- here::here("data/cancer_patient_data_set_copy.csv" )
+df_sorted <- read.csv(absolute_file_path, header = TRUE)
+#print(absolute_file_path)
+```
+
+```{r, head-data-10-row, echo=FALSE}
+# View the sorted data frame
+library(gt)
+head(df_sorted, 10) %>%
+  gt() %>%
+  tab_options(
+    data_row.padding = px(3),  
+    table.font.size = pct(90)  
+  )
+```
+
+# Descriptive Analysis
+
+To better visualize dataset for understanding and subsequent analyzing, tabular analysis and graphic analysis are included in this part.
+
+### Tabular analysis
+
+To clearly define each variable, a table of variables within dataset, their types, and descriptions is generated.
+
+```{r, table-of-data-type-and-description, echo=FALSE}
+table1_variable <- readRDS(
+  file = here::here("output/table1_variable.rds")
+)
+table1_variable
+
+```
+
+The descriptive statistics (minimum, first quantile, median, third quantile, maximum) of all scalar variables are listed in the table below.
+
+```{r, descriptive-statistics, echo=FALSE,message=FALSE,warning=FALSE}
+table2_descriptive <- readRDS(
+  file = here::here("output/table2_descriptive.rds")
+)
+table2_descriptive
+```
+
+Since there are enormous variables, I only select smoking from the exposure variable and shortness of breath from the symptom variable to compare the proportions of people of different degrees under genders.
+
+```{r, gtsummary-table-of-specific-variable-grouped-by-gender, echo=FALSE}
+
+table3_smoking <- readRDS(
+  file = here::here("output/table3_smoking.rds")
+)
+table3_smoking
+
+table4_breath <- readRDS(
+  file = here::here("output/table4_breath.rds")
+)
+table4_breath
+
+```
+
+### Graphical analysis
+
+Firstly, a heatmap is generated to imply the correlation between variables prior to building the quantitative model. As shown in this table, there are no correlation coefficients within the range of [-1, -0.4). In the heatmap, the intensity of the tile color indicates the strength of the correlation, with darker shades representing stronger correlations between each pair of variables.
+
+```{r, correlation-heat-map, echo=FALSE}
+library(knitr)
+#| fig.align = "center",
+#| out.width = "600px"
+knitr::include_graphics(
+  here::here("output/figure1_heatmap.png")
+)
+
+```
+
+
+Secondly, two stacked bar charts are plotted with the Figure2 is about exposure and Figure3 is about body symptom. From the figures we could find the distribution of level of exposure and intensity of body symptom.
+
+```{r, counting-stacked-bar-chart-1,echo = FALSE, warning=FALSE}
+#| fig.align = "center",
+#| out.width = "600px"
+knitr::include_graphics(
+  here::here("output/figure2_barExposure.png")
+)
+
+```
+
+
+```{r, counting-stacked-bar-chart-2,echo=FALSE, warning=FALSE}
+#| fig.align = "center",
+#| out.width = "600px"
+knitr::include_graphics(
+  here::here("output/figure3_barSymptom.png")
+)
+
+```
+
