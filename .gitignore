@@ -1,4 +1,4 @@
-*.rds
-*.png
 #*.html
 .DS_Store
+*.Rproj.user
+.Rproj.user
