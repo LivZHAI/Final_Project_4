@@ -46,7 +46,13 @@ This data set contains information on 1000 patients with lung cancer, including 
 
 To generate the final report, follow these steps:
 
-1.  **Ensure Required Packages are Installed in Your Rstudio**\
-    `knitr`, `kableExtra`, `dplyr`,`labelled`, `gtsummary`, `ggplot2`, `reshape2`, `gt`
-2.  **Download Project folder from GitHub**
+1.  **Download Project folder from GitHub**
+
+2.  **Ensure Required Packages are Installed in Your Rstudio**\
+    `knitr`, `kableExtra`, `dplyr`,`labelled`, `gtsummary`, `ggplot2`, `reshape2`, `gt`\
+
+    Additionally, to make your preparation tasks easier, `renv` library is installed here to help you synchronize your local package repository. Please type `renv::activate()` `renv::status()` `renv::restore()` in turn in your R console.\
+
+    If you still feel a little bit cumbersome to synchronize packages, don't worry! Here is another much easier way. Please just run `make install` in your terminal, and everything is done!
+
 3.  **Change terminal path to the project and click `make` in your terminal**

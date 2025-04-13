@@ -25,6 +25,10 @@ output/figure3_barSymptom.png: code/02_make_figures.R data/cancer_patient_data_s
 .PHONY: Analysis
 Analysis: output/table1_variable.rds output/table2_descriptive.rds output/table3_smoking.rds output/table4_breath.rds \
           output/figure1_heatmap.png output/figure2_barExposure.png output/figure3_barSymptom.png
+          
+.PHONY: install
+install:
+	Rscript -e "renv::restore(prompt = FALSE)"
 
 .PHONY: clean
 clean:
